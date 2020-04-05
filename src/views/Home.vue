@@ -36,7 +36,7 @@
     import InputSearch from '@/components/InputSearch.vue'
     import Book from '@/components/Book.vue'
 
-    import { store } from "../store.js";
+    import { store } from "@/store.js";
 
     export default {
         name: 'Home',
@@ -50,21 +50,8 @@
             Book
         },
         methods: {
-            async handleSubmit(text) {
-                const filteredBooks = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${text}&orderBy=newest&maxResults=40&printType=books`, {
-                    method: 'GET',
-                    headers: new Headers(),
-                    mode: 'cors',
-                    cache: 'default'
-                })
-                .then(el => el.json())
-                .then(books => {
-                    return books.items
-                        .filter((book, i, books) => books.findIndex((y) => y.id === book.id) === i)
-                        .map(el => el.volumeInfo)
-                })
-
-                store.addBooks(filteredBooks)
+            handleSubmit(text) {
+              store.addBooks(text)
             }
         },
         mounted() {

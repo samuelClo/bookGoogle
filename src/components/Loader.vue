@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.getLoading" style="background-color: white; height: 100%; width: 100%;">
+  <div v-if="this.shouldRender" style="background-color: white; height: 100%; width: 100%;">
     <svg version="1.1" class="loader" id="L4" xmlns="http://www.w3.org/2000/svg"
          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
          viewBox="-25 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
@@ -37,9 +37,10 @@
         name: 'Loader',
         data: function () {
             return {
-                minTime: 200,
-                maxTime: 300,
-                mustLoad: false
+              isTimerDone: false,
+              minTimeLoading: 200,
+              timer: {},
+              shouldRender: this.isLoading,
             }
         },
         props: {
@@ -49,18 +50,25 @@
             },
         },
         mounted() {
-            if (!this.isLoading)
-                return
-
-            setTimeout(() => { this.mustLoad = true }, this.minTime)
-            setTimeout(() => { this.mustLoad = true }, this.minTime)
+            this.timer = setTimeout(() => this.isTimerDone = true, this.minTimeLoading);
         },
-        computed: {
-            getLoading: function() {
-                console.log((this.mustLoad && this.isLoading))
-                return (this.mustLoad && this.isLoading)
-            }
-        }
+        watch: {
+          isLoading: function (newQuestion, oldQuestion) {
+              if (!this.isLoading && this.isTimerDone)
+                this.shouldRender = false
+              else
+                this.shouldRender = true
+          },
+          isTimerDone: function () {
+            if (!this.isLoading && this.isTimerDone)
+                this.shouldRender = false
+              else
+                this.shouldRender = true
+          }
+        },
+        beforeDestroy() {
+          clearTimeout(this.timer)
+        },
     }
 </script>
 

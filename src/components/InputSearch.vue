@@ -4,7 +4,7 @@
       <ion-title>Searchbar</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-      <ion-searchbar value="narnia" @input="inputText = $event.target.value" @keyup.enter="handleSubmit" placeholder="Search Favorites"></ion-searchbar>
+      <ion-searchbar @input="inputText = $event.target.value" @keyup.enter="handleSubmit" placeholder="Search Favorites"></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 </template>
@@ -15,7 +15,7 @@
         name: 'InputSearch',
         data: function () {
             return {
-                inputText: 'narnia',
+                inputText: '',
             }
         },
         methods: {

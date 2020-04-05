@@ -26,3 +26,11 @@
   color: #42b983;
 }
 </style>
+
+<script>
+export default {
+  mounted() {
+    google.books.load({'language': 'fr'})
+  }
+}
+</script>

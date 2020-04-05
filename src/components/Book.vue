@@ -2,7 +2,6 @@
   <ion-card>
     <img v-if="thumbnailUrl" :src="thumbnailUrl"/>
     <ion-card-header>
-      <!--      <ion-card-subtitle>{{ author }}</ion-card-subtitle>-->
       <ion-card-title>{{ title }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -16,7 +15,6 @@
 
 <script>
     export default {
-        name: 'Book',
         data: function () {
             return {
                 inputText: '',
